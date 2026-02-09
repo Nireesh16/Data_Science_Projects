@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine for Baia</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #ffd6e8, #ff9aa2);
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        text-align: center;
+        background: rgba(255,255,255,0.8);
+        padding: 40px;
+        border-radius: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        color: #ff3366;
+        margin-bottom: 30px;
+    }
+
+    button {
+        padding: 15px 35px;
+        font-size: 18px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    #yesBtn {
+        background: #ff4d6d;
+        color: white;
+        margin-right: 20px;
+    }
+
+    #yesBtn:hover {
+        transform: scale(1.1);
+        background: #ff1f4d;
+    }
+
+    #noBtn {
+        background: #999;
+        color: white;
+        position: fixed;
+    }
+
+    #successPage {
+        display: none;
+        text-align: center;
+    }
+
+    .heart {
+        position: fixed;
+        color: #ff4d6d;
+        font-size: 20px;
+        animation: floatUp 4s linear infinite;
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-800px) scale(0.5);
+            opacity: 0;
+        }
+    }
+
+    p {
+        font-size: 18px;
+        color: #444;
+        margin-top: 15px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container" id="mainPage">
+    <h1>Baia, will you be my Valentine? ❤️</h1>
+    <button id="yesBtn">Yes 💖</button>
+</div>
+
+<button id="noBtn">No 💔</button>
+
+<div class="container" id="successPage">
+    <h1>Yay! You just made me the happiest person 💕</h1>
+    <p>
+        Baia, from the moment you came into my life, everything feels brighter and warmer. 
+        Your smile makes my heart race and your presence makes every day special. 
+        I’m so lucky to call you mine, and I promise to make you feel loved not just today, 
+        but every single day. Happy Valentine’s Day, my beautiful Baia ❤️
+    </p>
+    <h2>Happy Valentine’s Day ❤️</h2>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const mainPage = document.getElementById("mainPage");
+const successPage = document.getElementById("successPage");
+
+function moveNoButton() {
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    const maxX = window.innerWidth - btnWidth;
+    const maxY = window.innerHeight - btnHeight;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+// Desktop hover
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+// Mobile touch
+noBtn.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveNoButton();
+});
+
+// Click safety
+noBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    moveNoButton();
+});
+
+yesBtn.addEventListener("click", function() {
+    mainPage.style.display = "none";
+    noBtn.style.display = "none";
+    successPage.style.display = "block";
+    createHearts();
+});
+
+function createHearts() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.bottom = "0px";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 4000);
+    }, 300);
+}
+
+// Initial position
+moveNoButton();
+</script>
+
+</body>
+</html>
